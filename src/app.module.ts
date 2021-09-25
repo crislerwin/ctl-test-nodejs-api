@@ -3,6 +3,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { SubscriptionController } from './controllers/subscription/subscription.controller';
+import { Subscription } from './models/subscription.model';
 
 @Module({
   imports: [
@@ -14,10 +16,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       username: process.env.TYPEORM_USERNAME,
       password: process.env.TYPEORM_PASSWORD,
       database: process.env.TYPEORM_DATABASE,
-      entities: [],
+      entities: [Subscription],
     }),
+    TypeOrmModule.forFeature([Subscription]),
   ],
-  controllers: [AppController],
+  controllers: [AppController, SubscriptionController],
   providers: [AppService],
 })
 export class AppModule {}
